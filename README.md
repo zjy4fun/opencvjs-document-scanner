@@ -55,8 +55,8 @@ You also need to include OpenCV:
 2. Detect the polygon of documents and return the points.
 
    ```js
-   const imgElement = document.getElementById("photoRaw")
-   const points = documentScanner.detect(imgElement); //detect from an img or canvas element
+   const imgElement = document.getElementById("photoRaw");
+   const points = documentScanner.detect(imgElement, {useCanny:true}); //detect from an img or canvas element. You can use canny edge detection to detect document with uneven lightings. If the contrast of the background and the document is vivid, then you don't need to enable this.
    ```
    
 3. Get the cropped document image.
