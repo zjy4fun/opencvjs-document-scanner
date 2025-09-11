@@ -1,4 +1,4 @@
-import { DocumentScanner } from ".";
+import { DocumentScanner, ScanOptions } from ".";
 
 let DDV;
 
@@ -21,10 +21,19 @@ if (!DDV) {
 // Inherit DocumentDetect class
 export class OpenCVDocumentDetectHandler extends DDV.DocumentDetect {
   private documentScanner:DocumentScanner;
-  constructor(documentScanner:DocumentScanner){
+  private scanOptions:ScanOptions = {useCanny:false};
+  constructor(documentScanner:DocumentScanner,scanOptions?:ScanOptions) {
     super();
     this.documentScanner = documentScanner;
+    if (scanOptions) {
+      this.scanOptions = scanOptions;
+    }
   }
+
+  setScanOptions(scanOptions:ScanOptions){
+    this.scanOptions = scanOptions;
+  }
+
   // Rewrite the detect method
   async detect(image:any, detectConfig:any) {
     const quad:any[] = [];
@@ -54,7 +63,7 @@ export class OpenCVDocumentDetectHandler extends DDV.DocumentDetect {
         var inputUint8Array = new Uint8Array(inputArrayBuffer);
         pixelData.set(inputUint8Array);
         context.putImageData(imageData, 0, 0);
-        const points = this.documentScanner.detect(canvas);
+        const points = this.documentScanner.detect(canvas,this.scanOptions);
         points.forEach(p => {
           quad.push([p.x * ratio, p.y * ratio]);
         });

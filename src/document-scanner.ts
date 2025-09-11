@@ -3,6 +3,10 @@ export interface Point {
   y: number;
 }
 
+export interface ScanOptions {
+  useCanny?:boolean; // use Canny edge detection
+}
+
 export class DocumentScanner {
   private cv:any;
   constructor() {
@@ -13,15 +17,23 @@ export class DocumentScanner {
     }
   }
 
-  detect(source:HTMLImageElement|HTMLCanvasElement):Point[]{
+  detect(source:HTMLImageElement|HTMLCanvasElement,options?:ScanOptions):Point[]{
+    let useCanny = false;
+    if (options && options.useCanny === true) { //canny is disabled by default
+      useCanny = true;
+    }
     let cv = this.cv;
     const img = cv.imread(source);
     const gray = new cv.Mat();
-    cv.cvtColor(img, gray, cv.COLOR_RGBA2GRAY);
+    if (useCanny) {
+      cv.Canny(img, gray, 50, 200);
+    }else{
+      cv.cvtColor(img, gray, cv.COLOR_RGBA2GRAY);
+    }
     const blur = new cv.Mat();
-    cv.GaussianBlur(gray,blur,new cv.Size(5, 5),0,0,cv.BORDER_DEFAULT);
+    cv.GaussianBlur(gray,blur,new cv.Size(3, 3),0,0,cv.BORDER_DEFAULT);
     const thresh = new cv.Mat();
-    cv.threshold(blur,thresh,0,255,cv.THRESH_BINARY + cv.THRESH_OTSU);
+    cv.threshold(blur,thresh,0,255,cv.THRESH_OTSU);
     let contours = new cv.MatVector();
     let hierarchy = new cv.Mat();
 
