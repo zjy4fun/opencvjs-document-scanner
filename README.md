@@ -6,7 +6,7 @@
 
 A document scanner implemented with opencv.js. It can detect the boundaries of documents and apply perspective transformation to get a deskewed image.
 
-[Online demo](https://ornate-unicorn-65848b.netlify.app/)
+[Online demo](https://tony-xlh.github.io/opencvjs-document-scanner/example/vanilla.html)
 
 [Demo video](https://github.com/tony-xlh/opencvjs-document-scanner/assets/5462205/0f1748fc-1e19-462f-9928-c9efde0863ad)
 
