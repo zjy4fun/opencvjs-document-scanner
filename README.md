@@ -70,7 +70,7 @@ You also need to include OpenCV:
    
    ```html
    <script type="module">
-     import { DocumentScanner } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
+     import { DocumentScanner, OpenCVDocumentDetectHandler } from 'https://cdn.jsdelivr.net/npm/opencv-document-scanner/dist/opencv-document-scanner.js';
      const documentScanner = new DocumentScanner();
      const detectHandler = new OpenCVDocumentDetectHandler(documentScanner);
      Dynamsoft.DDV.setProcessingHandler("documentBoundariesDetect", detectHandler);
