@@ -115,7 +115,7 @@
         const cameras = await captureViewer.getAllCameras();
         for (var i=0;i<cameras.length;i++)
         { 
-            if(cameras[i].label.indexOf("Droid") != -1){ //for desktop testing
+            if(cameras[i].label.indexOf("OBS") != -1){ //for desktop testing
                 captureViewer.selectCamera(cameras[i]);
                 break;
             }
