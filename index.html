@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/dynamsoft-document-viewer@1.0.0/dist/ddv.js"></script>
-    <link rel="stylesheet" href="/dynamsoft-document-viewer@1.0.0/dist/ddv.css">
+    <script src="/dynamsoft-document-viewer/dist/ddv.js"></script>
+    <link rel="stylesheet" href="/dynamsoft-document-viewer/dist/ddv.css">
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
     <title>OpenCV Document Scanner</title>
@@ -97,10 +97,10 @@
       };
 
       async function initDDV(){
-        await Dynamsoft.DDV.setConfig({
-            license: "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", // Public trial license which is valid for 24 hours
-            engineResourcePath: "/dynamsoft-document-viewer@1.0.0/dist/engine", // Lead to a folder containing the distributed WASM files
-        });
+        Dynamsoft.DDV.Core.license = "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9"; // Public trial license which is valid for 24 hours
+        Dynamsoft.DDV.Core.engineResourcePath = "/dynamsoft-document-viewer/dist/engine";// Lead to a folder containing the distributed WASM files
+        await Dynamsoft.DDV.Core.loadWasm();
+        await Dynamsoft.DDV.Core.init(); 
         docManager = Dynamsoft.DDV.documentManager;
         doc = docManager.createDocument({
           name: "doc"
@@ -108,7 +108,7 @@
         captureViewer = new Dynamsoft.DDV.CaptureViewer({
           container: document.getElementById("captureViewer"),
           viewerConfig: {
-            enableAutoCapture: true,
+            enableAutoCapture: false,
             enableAutoDetect: true
           }
         });
@@ -125,9 +125,10 @@
             // Stop video stream and hide capture viewer's container
             captureViewer.stop();
             document.getElementById("captureViewer").style.display = "none";
-            const pageData =  await captureViewer.currentDocument.getPageData(e.pageUid);
+            const pageData =  captureViewer.currentDocument.getPageData(e.pageUid);
+            const raw = await pageData.raw();
             // Original image
-            let url = URL.createObjectURL(pageData.raw.data);
+            let url = URL.createObjectURL(raw.data);
             document.getElementById("photo").src = url;
             await loadImage(document.getElementById("photoRaw"), url);
             if (document.getElementById("enableEditing").checked) {
@@ -275,7 +276,7 @@
         ],
     };
     </script>
-    <script async src="/opencv.js" type="text/javascript"></script>
     <script type="module" src="/src/main.ts"></script>
+    <script async src="/opencv.js" type="text/javascript"></script>
   </body>
 </html>
