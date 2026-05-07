@@ -105,7 +105,7 @@
 
       async function initDDV(){
         Dynamsoft.DDV.Core.license = "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9"; // Public trial license which is valid for 24 hours
-        Dynamsoft.DDV.Core.engineResourcePath = "/dynamsoft-document-viewer/engine";// Lead to a folder containing the distributed WASM files
+        Dynamsoft.DDV.Core.engineResourcePath = "./dynamsoft-document-viewer/engine";// Lead to a folder containing the distributed WASM files
         await Dynamsoft.DDV.Core.loadWasm();
         await Dynamsoft.DDV.Core.init(); 
         docManager = Dynamsoft.DDV.documentManager;
@@ -295,6 +295,6 @@
     }
     </script>
     <script type="module" src="/src/main.ts"></script>
-    <script async src="/opencv.js" type="text/javascript"></script>
+    <script async src="./opencv.js" type="text/javascript"></script>
   </body>
 </html>

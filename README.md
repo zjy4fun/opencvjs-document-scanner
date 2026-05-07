@@ -41,7 +41,7 @@ You also need to include OpenCV:
     }
   };
 </script>
-<script async src="https://docs.opencv.org/4.8.0/opencv.js" type="text/javascript"></script>
+<script async src="./opencv.js" type="text/javascript"></script>
 ```
 
 ## Usage
