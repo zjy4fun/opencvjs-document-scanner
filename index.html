@@ -90,7 +90,7 @@
       let perspectiveViewer;
       let docManager;
       let doc;
-      let detectHander;
+      let detectHandler;
       initDDV();
 
       var Module = {
@@ -179,7 +179,7 @@
         
       })
       document.getElementById("liveScanBtn").addEventListener("click",function(){
-        if (captureViewer) {
+        if (captureViewer && detectHandler) {
           detectHandler.setScanOptions(getScanOptions());
           document.getElementById("captureViewer").style.display = "block";
           captureViewer.play({fill:true});
